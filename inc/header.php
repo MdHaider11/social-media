@@ -4,6 +4,7 @@
  * autload requred
  */
 
+use App\Db;
 use App\Session;
 
 require('vendor/autoload.php');
@@ -14,7 +15,7 @@ require('vendor/autoload.php');
 $url_assets = 'https://localhost/social-media/assets';
 $session = new Session();
 $session->init();
-
+$db = new Db();
 
 ?>
 

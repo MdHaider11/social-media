@@ -38,4 +38,18 @@ class Session
     {
         return session_destroy();
     }
+
+    public function login_index($login)
+    {
+        if ($this->get('login') == false) {
+            header('location: login.php');
+        }
+    }
+
+    public function login_another($login)
+    {
+        if ($this->get('login') == true) {
+            header('location: index.php');
+        }
+    }
 }

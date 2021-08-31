@@ -1,4 +1,6 @@
-<?php include('inc/header.php'); ?>
+<?php include('inc/header.php');
+
+$session->login_another($session->get('login')); ?>
 
 <section class="">
     <div class="container">

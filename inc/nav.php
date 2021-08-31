@@ -31,7 +31,7 @@
                         <i class="las la-cog"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Log Out</a></li>
+                        <li><a class="dropdown-item" href="inc/logout-inc.php?action=logout">Log Out</a></li>
                     </ul>
                 </li>
             </ul>

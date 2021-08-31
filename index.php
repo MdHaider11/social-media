@@ -1,4 +1,7 @@
 <?php include('inc/header.php'); ?>
+<?php
+$session->login_index($session->get('login'));
+?>
 <?php include('inc/nav.php'); ?>
 
 <div class="main-timeline d-flex">

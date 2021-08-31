@@ -45,6 +45,7 @@ class Db extends Session
                 $verify = "SELECT * FROM users WHERE email='$login_email' && password='$checked_password'";
                 if ($this->conn->query($verify)) {
                     $this->set('user_id', $row['id']);
+                    $this->set('login', true);
                     header('location: ../index.php');
                 }
             } else {
