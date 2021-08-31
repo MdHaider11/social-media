@@ -31,4 +31,26 @@ class Db extends Session
             header('location: ../login.php');
         }
     }
+
+    public function login($login_email, $login_password)
+    {
+        $select_users = "SELECT * FROM users WHERE email='$login_email'";
+        $query = $this->conn->query($select_users);
+        if ($query) {
+            $row = $query->fetch_assoc();
+            $current_password = $row['password'];
+            $user_id = $row['id'];
+            if (password_verify($login_password, $current_password)) {
+                $checked_password = password_verify($login_password, $current_password);
+                $verify = "SELECT * FROM users WHERE email='$login_email' && password='$checked_password'";
+                if ($this->conn->query($verify)) {
+                    $this->set('user_id', $row['id']);
+                    header('location: ../index.php');
+                }
+            } else {
+                $this->set('pass_not_matching', 'Your email & password wrong !');
+                header('location: ../login.php');
+            }
+        }
+    }
 }
