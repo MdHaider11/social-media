@@ -19,7 +19,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="following.php">
                 <i class="las la-users"></i>
                 <span>Following</span>
             </a>

@@ -79,7 +79,9 @@ $session->login_another($session->get('login')); ?>
                             ?>
                         </div>
                         <button type="submit" class="btn btn-primary" name="signup">Sign Up</button>
+                        <a class="ms-4" href="login.php">Log In ?</a>
                     </form>
+
                 </div>
             </div>
         </div>

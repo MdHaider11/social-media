@@ -24,6 +24,16 @@ $session->login_another($session->get('login')); ?>
             $session->unseting('pass_not_matching');
         }
         ?>
+        <?php
+        if ($session->get('deactive_id')) {
+        ?>
+            <div class="alert alert-danger mt-3" role="alert">
+                <?= $session->get('deactive_id'); ?>
+            </div>
+        <?php
+            $session->unseting('deactive_id');
+        }
+        ?>
         <div class="row justify-content-center align-items-center vh-100">
             <div class="col-lg-6">
                 <div class="form-left">
@@ -61,6 +71,7 @@ $session->login_another($session->get('login')); ?>
                             ?>
                         </div>
                         <button type="submit" class="btn btn-primary" name="login">Log In</button>
+                        <a class="ms-4" href="signup.php">Sign Up ?</a>
                     </form>
                 </div>
             </div>
