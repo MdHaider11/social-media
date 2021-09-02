@@ -1,6 +1,7 @@
 <?php include('inc/header.php'); ?>
 <?php
 $session->login_index($session->get('login'));
+$user_id = $session->get('user_id');
 ?>
 <?php include('inc/nav.php'); ?>
 
@@ -61,31 +62,40 @@ $session->login_index($session->get('login'));
         </div>
 
         <div class="row">
-            <div class="col-lg-12">
-                <div class="all-posts mt-5">
-                    <div class="card">
-                        <div class="card-header d-flex align-items-center gap-3">
-                            <img src="https://images.unsplash.com/photo-1601572420755-16a9f0677102?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZG93bmxvYWR8ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
-                            <div>
-                                <h4>Posted by <b>Haider</b></h4>
-                                <span>2 days ago</span>
+            <?php
+            $me_and_friend = "SELECT users.name, posts.user_img, posts.body, posts.created_at FROM posts, users WHERE (posts.user_id IN (SELECT friends.following_id FROM friends WHERE friends.follower_id = '$user_id') OR posts.user_id = '$user_id') AND posts.user_id = users.id";
+            $query = $db->conn->query($me_and_friend);
+            if (0 < $query->num_rows) {
+                while ($row = $query->fetch_assoc()) {
+            ?>
+                    <div class="col-lg-12 mb-3">
+                        <div class="all-posts mt-5 w-50">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1601572420755-16a9f0677102?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZG93bmxvYWR8ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+                                    <div>
+                                        <h4>Posted by <?= $row['name'] ?><b></b></h4>
+                                        <span><?= $row['created_at'] ?></span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text w-50 mb-3"><?= $row['body'] ?></p>
+                                    <img class="rounded" src="media/<?= $row['user_img'] ?>" alt="">
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <ul class="d-flex align-items-center gap-3">
+                                        <li><a href="javascript:void(0)">Like (0)</a></li>
+                                        <li><a href="javascript:void(0)">Dislike (0)</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body d-flex">
-                            <p class="card-text w-50 align-self-start pe-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                                ratione reiciendis dolore maiores, aut fuga ipsam doloribus, labore illum nam deserunt
-                                nobis sunt! Temporibus dolorem sit aspernatur similique voluptatum autem.</p>
-                            <img class="rounded" src="https://images.unsplash.com/photo-1546109113-a07e6a96ef76?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG93bmxvYWR8ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
-                        </div>
-                        <div class="card-footer text-muted">
-                            <ul class="d-flex align-items-center gap-3">
-                                <li><a href="javascript:void(0)">Like (0)</a></li>
-                                <li><a href="javascript:void(0)">Dislike (0)</a></li>
-                            </ul>
-                        </div>
                     </div>
-                </div>
-            </div>
+            <?php
+
+                }
+            }
+            ?>
         </div>
     </div>
     <div class="timeline-right">

@@ -27,7 +27,7 @@ $user_id = $session->get('user_id');
             ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div class="friend-list">
-                            <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWFufGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+                            <img src="https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper-thumbnail.png" alt="">
                             <span class="ms-1">
                                 <a href="#"><?= $row['name']  ?></a>
                             </span>

@@ -83,11 +83,8 @@ class Db extends Session
 
     public function  friends($follower, $followig)
     {
-        echo $follower;
-        echo $followig;
         $checking = "SELECT * FROM `friends` WHERE follower_id='$follower' AND following_id='$followig'";
         $run = $this->conn->query($checking);
-        // echo $run->num_rows;
         if (0 == $run->num_rows) {
             $insert = "INSERT INTO friends (follower_id, following_id) VALUES ('$follower', '$followig')";
             $query = $this->conn->query($insert);
