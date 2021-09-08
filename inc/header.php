@@ -6,9 +6,7 @@
 
 use App\Db;
 use App\Session;
-
 require('vendor/autoload.php');
-
 /**
  * stylesheed,img & js
  */
@@ -16,6 +14,7 @@ $url_assets = 'https://localhost/social-media/assets';
 $session = new Session();
 $session->init();
 $db = new Db();
+
 
 ?>
 

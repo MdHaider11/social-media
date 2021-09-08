@@ -11,5 +11,7 @@
             "email": "mdhaiderhossain10@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "nesbot/carbon": "^2.52"
+    }
 }

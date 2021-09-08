@@ -2,6 +2,9 @@
 <?php
 $session->login_index($session->get('login'));
 $user_id = $session->get('user_id');
+
+use Carbon\Carbon;
+use Cake\Chronos\Chronos;
 ?>
 <?php include('inc/nav.php'); ?>
 
@@ -63,7 +66,7 @@ $user_id = $session->get('user_id');
 
         <div class="row">
             <?php
-            $me_and_friend = "SELECT users.name, posts.user_img, posts.body, posts.created_at FROM posts, users WHERE (posts.user_id IN (SELECT friends.following_id FROM friends WHERE friends.follower_id = '$user_id') OR posts.user_id = '$user_id') AND posts.user_id = users.id";
+            $me_and_friend = "SELECT users.name, posts.user_img, posts.body, posts.created_at FROM posts, users WHERE (posts.user_id IN (SELECT friends.following_id FROM friends WHERE friends.follower_id = '$user_id') OR posts.user_id = '$user_id') AND posts.user_id = users.id ORDER BY posts.created_at DESC";
             $query = $db->conn->query($me_and_friend);
             if (0 < $query->num_rows) {
                 while ($row = $query->fetch_assoc()) {
@@ -75,7 +78,32 @@ $user_id = $session->get('user_id');
                                     <img src="https://images.unsplash.com/photo-1601572420755-16a9f0677102?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZG93bmxvYWR8ZW58MHwyfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
                                     <div>
                                         <h4>Posted by <?= $row['name'] ?><b></b></h4>
-                                        <span><?= $row['created_at'] ?></span>
+                                        <!-- <span><?=  $row['created_at']?></span> -->
+                                        <?php
+                                        $now = Carbon::now(new DateTimeZone('Asia/Dhaka'));
+                                        $time =$row['created_at'];
+                                        ?>
+                                        <span>
+                                        <?php
+                                            if($now->diffInSeconds($time)  <= 60){
+                                                echo $now->diffInSeconds($time). ' Seconds Ago';
+                                            }
+                                            if($now->diffInMinutes($time)  <= 60 && $now->diffInMinutes($time) >= 1){
+                                                echo $now->diffInMinutes($time) . ' Minutes Ago';
+                                            }
+                                            if($now->diffInHours($time)  <= 24 && $now->diffInHours($time) >= 1){
+                                                echo $now->diffInHours($time) . ' Hours Ago';
+                                            }
+                                            if($now->diffInDays($time)  <= 30 && $now->diffInDays($time) >=  1){
+                                                echo $now->diffInDays($time) . ' Days Ago';
+                                            }
+                                            if($now->diffInMonths($time)  <= 12 && $now->diffInMonths($time) >=  1){
+                                                echo $now->diffInMonths($time) . ' Months Ago';
+                                            }
+                                            if($now->diffInYears($time) >= 1){
+                                                echo $now->diffInYears($time) . ' Years Ago';
+                                            }
+                                        ?></span>
                                     </div>
                                 </div>
                                 <div class="card-body">
